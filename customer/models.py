@@ -6,7 +6,7 @@ from .constants import GENDER
 
 class Customer(models.Model):
     user=models.ForeignKey(User, related_name='customer',on_delete=models.CASCADE)
-    gender=models.CharField(choices=GENDER)
+    gender=models.CharField(max_length=10,choices=GENDER)
     customer_id=models.IntegerField(unique=True)
     phone=models.CharField(max_length=12)
     balance=models.DecimalField(decimal_places=2,max_digits=12,default=0)

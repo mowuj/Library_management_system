@@ -6,7 +6,7 @@ from .constants import GENDER
 
 class UserRegistrationForm(UserCreationForm):
     phone= forms.CharField(max_length=12)
-    gender=forms.ChoiceField(choices=GENDER)
+    gender = forms.ChoiceField(choices=GENDER, widget=forms.RadioSelect)
     street_address = forms.CharField(max_length=50)
     city = forms.CharField(max_length=50)
     country = forms.CharField(max_length=50)
