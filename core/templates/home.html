@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class=" d-flex justify-content-center align-items-center gap-4 mt-5">
+  <h3 class="text-center">Our Bands</h3>
+    {% for i in category %}
+    <a class="btn btn-warning text-decoration-none text-white" href="" >{{i.name}}</a>
+    {% endfor %}
+    
+</div>
+
+<div class=" p-3">
+    <h4 class="text-center">Total Category Found : {{data | length}}</h4>
+    <div class="d-flex flex-wrap px-5 my-5">
+  {% for i in data %}
+    <div class="col-sm-3 mb-3 mb-sm-0">
+    <div class="card mx-3">
+      <div class="card-body">
+        <img src="{{i.image.url}}" class="card-img-top" alt="...">
+        <h5 class="card-title"><a href="" class="text-decoration-none text-dark">{{i.title}}</a></h5>
+        <p class="card-text">Price: {{i.price}}</p>
+        <p class="card-text">Price: {{i.category.name}}</p>
+        <p class="card-text">{{i.description | truncatewords:10}}</p>
+            <br>
+            <a class="btn btn-primary btn-sm my-2" href="">View Detail</a>
+        
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+  </div>
+{% endblock content %}
