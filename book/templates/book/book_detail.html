@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %} 
+{% block content %}
+<div class="d-flex justify-content-center align-items-center gap-5 mt-5">
+  <div class="col-4">
+    <img src="{{book.image.url}}" alt="" class="w-100">
+  </div>
+  <div class="col-6">
+    <h3>{{book.title}}</h3>
+    <h5>Price : {{book.borrowing_price}}</h5>
+    <h5>category : {{book.category.name}}</h5>
+    <p>{{book.description}}</p>
+    {% csrf_token %}
+    {% if request.user.is_authenticated %}
+    <input class="btn btn-warning" type="submit" value="Buy Now">
+    {% endif %}
+</form>
+    
+  </div>
+</div>
+
+
+<div class="card mt-2">
+  <h5 class="p-3">Total Review: {{ review | length }}</h5>
+  {% for i in review %}
+  <div class="card-body border m-2">
+    <p><b>{{i.rating}}</b> {{i.created_at}}</p>
+    <p>{{i.body}}</p>
+    <p></p>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <form action="" class="w-50 m-auto" method="post">
+      <h1 class="text-center my-4">Review This Book</h1>
+      {% csrf_token %} {{review_form | crispy}}
+      <input class="btn btn-warning" type="submit" value="Submit" />
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

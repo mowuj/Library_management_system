@@ -24,7 +24,7 @@
         <p class="card-text">Price: {{i.category.name}}</p>
         <p class="card-text">{{i.description | truncatewords:10}}</p>
             <br>
-            <a class="btn btn-primary btn-sm my-2" href="">View Detail</a>
+            <a class="btn btn-primary btn-sm my-2" href="{% url 'book_detail' i.id%}">View Detail</a>
         
       </div>
     </div>

@@ -9,8 +9,3 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model=Review
         fields=['body', 'rating']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['book'].disabled=True
-        self.fields['book'].widget=forms.HiddenInput()

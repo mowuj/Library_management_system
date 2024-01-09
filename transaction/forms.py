@@ -11,6 +11,8 @@ class TransactionForm(forms.Model):
         super().__init__(*args, **kwargs)
         self.fields['transaction_type'].disabled = True
         self.fields['transaction_type'].widget = forms.HiddenInput()
+        self.fields['book'].disabled = True
+        self.fields['book'].widget = forms.HiddenInput()
 
     def save(self, commit=True):
         self.instance.customer = self.customer
