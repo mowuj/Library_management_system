@@ -1,6 +1,7 @@
 {% extends "base.html" %} 
 {% load crispy_forms_tags %} 
 {% block content %}
+
 <div class="d-flex justify-content-center align-items-center gap-5 mt-5">
   <div class="col-4">
     <img src="{{book.image.url}}" alt="" class="w-100">
@@ -10,35 +11,51 @@
     <h5>Price : {{book.borrowing_price}}</h5>
     <h5>category : {{book.category.name}}</h5>
     <p>{{book.description}}</p>
-    {% csrf_token %}
-    {% if request.user.is_authenticated %}
-    <input class="btn btn-warning" type="submit" value="Buy Now">
-    {% endif %}
+    <h6>Total Review: {{ review | length }}</h6>
+    <form action="{% url 'borrow' book.id %}" method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-warning" value="Borrow">
+</form>
 </form>
     
   </div>
 </div>
-
-
-<div class="card mt-2">
-  <h5 class="p-3">Total Review: {{ review | length }}</h5>
-  {% for i in review %}
-  <div class="card-body border m-2">
-    <p><b>{{i.rating}}</b> {{i.created_at}}</p>
-    <p>{{i.body}}</p>
-    <p></p>
+<div class="row mt-4">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Reviews</h5>
+        {% for i in review %}
+          <div class="border-bottom py-3">
+            <div class="d-flex align-items-center mb-2">
+              <p class="m-0 me-2 fw-bold">Rating:</p>
+              <div class="star-rating">
+                {% for _ in "x"|ljust:i.rating|slice:":5" %}
+                  <i class="fa fa-star" style="color: gold;"></i>
+                {% endfor %}
+              </div>
+            </div>
+            <p class="m-0">{{ i.body }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
-  {% endfor %}
+
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="text-center my-4">Review This Book</h1>
+        <form action="" class="w-100" method="post">
+          {% csrf_token %}
+          {{ review_form | crispy }}
+          <input class="btn btn-warning mt-3" type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="card">
-  <div class="card-body">
-    <form action="" class="w-50 m-auto" method="post">
-      <h1 class="text-center my-4">Review This Book</h1>
-      {% csrf_token %} {{review_form | crispy}}
-      <input class="btn btn-warning" type="submit" value="Submit" />
-    </form>
-  </div>
-</div>
+
 
 {% endblock content %}

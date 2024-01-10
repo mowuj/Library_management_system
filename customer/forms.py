@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Customer
+from .models import CustomerModel
 from django.contrib.auth.forms import UserCreationForm 
 from .constants import GENDER
 
@@ -25,7 +25,7 @@ class UserRegistrationForm(UserCreationForm):
             city=self.cleaned_data.get('city')
             country=self.cleaned_data.get('country')
 
-            Customer.objects.create(
+            CustomerModel.objects.create(
             user=user,
             customer_id=10000+user.id,
             phone=phone,
@@ -51,7 +51,6 @@ class UserUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         
         if self.instance:
             try:
@@ -60,7 +59,7 @@ class UserUpdateForm(forms.ModelForm):
                 customer = None
 
             if customer:
-                self.fields['phone'].initial = customer.phone_no
+                self.fields['phone'].initial = customer.phone
                 self.fields['gender'].initial = customer.gender
                 self.fields['street_address'].initial = customer.street_address
                 self.fields['city'].initial = customer.city
@@ -71,7 +70,7 @@ class UserUpdateForm(forms.ModelForm):
 
         if commit:
             user.save()
-            customer, created = Customer.objects.get_or_create(user=user)
+            customer, created = CustomerModel.objects.get_or_create(user=user)
 
             customer.phone_no = self.cleaned_data.get("phone_no")
             customer.gender = self.cleaned_data.get("gender")

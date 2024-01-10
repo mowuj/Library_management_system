@@ -4,9 +4,9 @@
 
 
 <div class=" d-flex justify-content-center align-items-center gap-4 mt-5">
-  <h3 class="text-center">Our Bands</h3>
+  <h3 class="text-center">Categories</h3>
     {% for i in category %}
-    <a class="btn btn-warning text-decoration-none text-white" href="" >{{i.name}}</a>
+    <a class="btn btn-warning text-decoration-none text-white" href="{% url 'category' i.slug %}" >{{i.name}}</a>
     {% endfor %}
     
 </div>
@@ -20,8 +20,8 @@
       <div class="card-body">
         <img src="{{i.image.url}}" class="card-img-top" alt="...">
         <h5 class="card-title"><a href="" class="text-decoration-none text-dark">{{i.title}}</a></h5>
-        <p class="card-text">Price: {{i.price}}</p>
-        <p class="card-text">Price: {{i.category.name}}</p>
+        <p class="card-text">Price: {{i.borrowing_price}}</p>
+        <p class="card-text">Category: {{i.category.name}}</p>
         <p class="card-text">{{i.description | truncatewords:10}}</p>
             <br>
             <a class="btn btn-primary btn-sm my-2" href="{% url 'book_detail' i.id%}">View Detail</a>

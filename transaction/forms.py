@@ -1,7 +1,7 @@
 from django import forms
 from .models import Transaction
 
-class TransactionForm(forms.Model):
+class TransactionForm(forms.ModelForm):
     class Meta:
         model=Transaction
         fields=['amount','transaction_type',]
@@ -11,8 +11,7 @@ class TransactionForm(forms.Model):
         super().__init__(*args, **kwargs)
         self.fields['transaction_type'].disabled = True
         self.fields['transaction_type'].widget = forms.HiddenInput()
-        self.fields['book'].disabled = True
-        self.fields['book'].widget = forms.HiddenInput()
+        
 
     def save(self, commit=True):
         self.instance.customer = self.customer
@@ -39,6 +38,7 @@ class BorrowForm(TransactionForm):
         super().__init__(*args, **kwargs)
         self.fields['amount'].disabled = True
         self.fields['amount'].widget = forms.HiddenInput()
+        
 
 
 class ReturnForm(TransactionForm):

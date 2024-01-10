@@ -3,8 +3,9 @@ from .models import Review
 from .constants import RATING
 
 class ReviewForm(forms.ModelForm):
-    body=forms.CharField(widget=forms.Textarea)
-    rating=forms.ChoiceField(choices=RATING)
+    rating = forms.ChoiceField(choices=RATING)
+    body=forms.CharField(widget=forms.Textarea(attrs={'rows':3}))
+    
 
     class Meta:
         model=Review

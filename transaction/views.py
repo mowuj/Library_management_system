@@ -13,14 +13,14 @@ from book.models import Book
 # Create your views here.
 class TransactionViewMixin(LoginRequiredMixin,CreateView):
     model=Transaction
-    template_name=''
+    template_name = 'transaction/transaction.html'
     success_url=reverse_lazy('profile')
     title=''
 
     def get_form_kwargs(self):
         kwargs=super().get_form_kwargs()
         kwargs.update({
-            'customer':self.request.user.customer
+            'customer' : self.request.user.customer
         })
         return kwargs
     
@@ -34,15 +34,16 @@ class TransactionViewMixin(LoginRequiredMixin,CreateView):
 class DepositView(TransactionViewMixin):
     form_class=DepositForm
     title='Deposit'
+    
 
     def get_initial(self):
         initial={'transaction_type':DEPOSIT}
         return initial
     
     def form_valid(self,form):
-        amount=form.cleaned_data('amount')
+        amount=form.cleaned_data.get('amount')
         customer=self.request.user.customer
-        customer.balance +=amount
+        customer.balance += amount
         customer.save(
             update_fields=['balance']
         )

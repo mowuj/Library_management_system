@@ -4,8 +4,8 @@ from .constants import GENDER
 # Create your models here
 
 
-class Customer(models.Model):
-    user=models.ForeignKey(User, related_name='customer',on_delete=models.CASCADE)
+class CustomerModel(models.Model):
+    user=models.OneToOneField(User, related_name="customer",on_delete=models.CASCADE)
     gender=models.CharField(max_length=10,choices=GENDER)
     customer_id=models.IntegerField(unique=True)
     phone=models.CharField(max_length=12)

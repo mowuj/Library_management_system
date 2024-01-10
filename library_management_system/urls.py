@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 from .views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home),
+    path('',home,name='home'),
+    path('category_slug/<slug:category_slug>/', home, name='category'),
     path('book/',include('book.urls')),
     path('customer/',include('customer.urls')),
     path('transaction/',include('transaction.urls')),

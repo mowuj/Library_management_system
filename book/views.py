@@ -21,6 +21,7 @@ class BookDetailView(LoginRequiredMixin,DetailView):
         if review_form.is_valid():
             new_review = review_form.save(commit=False)
             new_review.book = book
+            new_review.user = self.request.user
             new_review.save()
             return self.get(request, *args, **kwargs)
 
