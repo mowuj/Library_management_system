@@ -1,49 +1,68 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% block title %}
+<title>Profile</title>
+{% endblock title %}
 {% block content %}
 
-<div>
+<div class=" mx-3">
   <h1 class="text-center my-3">Profile Page</h1>
   <div class="d-flex justify-content-center">
-    <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit your Profile</a>
+    <a href="{% url 'edit_profile' %}" class="btn btn-primary mb-4">Edit your Profile</a>
   </div>
-</div>
 
-{% if borrows %}
-  <div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="mb-4">
+        <h2>Hello: {{ customer }}</h2>
+        <h5>Customer Id: {{ customer.customer_id }}</h5>
+        <h5>Phone: {{ customer.phone }}</h5>
+        <h5>Street: {{ customer.street_address }}</h5>
+        <h5>City: {{ customer.city }}</h5>
+        <h5>Country: {{ customer.country }}</h5>
+      </div>
+    </div>
 
-    <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Transaction Type</th>
-      <th scope="col">Book</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Current Balance</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-        {% for i in borrows %}
+    <div class="col-md-10">
+      {% if borrows %}
+      <h1 class="text-center">Your Borrow Report</h1>
+      <table class="table table-bordered">
+        <thead>
           <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Transaction Type</th>
+            <th scope="col">Book</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Balance (A/B)</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in borrows %}
+          <tr>
+            <td>{{ i.id}}</td>
             <td>{{ i.timestamps|date:"F d, Y h:i A" }}</td>
             <td>{{ i.get_transaction_type_display }}</td>
-            <td>{{ i.book.title }}</td>
+            <td>{{ i.book.title | truncatewords:4 }}</td>
             <td>{{ i.amount }}</td>
             <td>{{ i.balance_after_transaction }}</td>
             <td><a href="{% url 'return' i.id %}" class="btn btn-warning">Return</a></td>
           </tr>
-        {% endfor %}
-      <tr>
-          <td colspan="2"></td>
-          <td><strong>Total Borrowing Price:</strong></td>
-          <td colspan="2"><b>${{ total_borrowing_price }}</b> </td>
-        </tr>
-</table>
-
+          {% endfor %}
+          <tr>
+            <td colspan="2"></td>
+            <td><strong>Total Borrowing Price:</strong></td>
+            <td colspan="2"><b>${{ total_borrowing_price }}</b> </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      {% else %}
+      <h1 class="text-danger text-center">No Previous Buy Items</h1>
+      {% endif %}
+    </div>
   </div>
-{% else %}
-<h1 class="text-danger text-center">No Previous Buy Items</h1>
-{% endif %}
+</div>
 
 {% endblock content %}

@@ -38,7 +38,23 @@ class BorrowForm(TransactionForm):
         super().__init__(*args, **kwargs)
         self.fields['amount'].disabled = True
         self.fields['amount'].widget = forms.HiddenInput()
+    
+    def get_initial(self):
+        initial = super().get_initial()
+        book = self.initial.get('book')  # Retrieve the book from initial data
+        if book:
+            initial['book'] = book
+        return initial
+
+    
+    def save(self, commit=True):
+
+        book = self.initial.get('book')
+
+        self.instance.book = book
         
+        return super().save(commit)
+
 
 
 class ReturnForm(TransactionForm):

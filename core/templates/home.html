@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
 {% block content %}
 
 
@@ -18,12 +22,16 @@
     <div class="col-sm-3 mb-3 mb-sm-0">
     <div class="card mx-3">
       <div class="card-body">
-        <img src="{{i.image.url}}" class="card-img-top" alt="...">
-        <h5 class="card-title"><a href="" class="text-decoration-none text-dark">{{i.title}}</a></h5>
-        <p class="card-text">Price: {{i.borrowing_price}}</p>
-        <p class="card-text">Category: {{i.category.name}}</p>
+        <img src="{{i.image.url}}" class="card-img-top img-fluid" style="height: 14rem;" alt="...">
+        <h4 class="card-title mt-2"><a href="" class="text-decoration-none text-dark">{{i.title  | truncatewords:4}}</a></h4>
+        <h5 class="card-text">Price: {{i.borrowing_price}}</h5>
+        <!-- {% for cat in i.category.all %}
+    <h5 class="card-text">Category: {{ cat.name }}</h5>
+{% endfor %} -->
+        
+    <h6 class="card-text">Categories: {% for cat in i.category.all %} {{cat.name}} {% if not forloop.last %}, {% endif %} {% endfor %}</h6>
+    
         <p class="card-text">{{i.description | truncatewords:10}}</p>
-            <br>
             <a class="btn btn-primary btn-sm my-2" href="{% url 'book_detail' i.id%}">View Detail</a>
         
       </div>
