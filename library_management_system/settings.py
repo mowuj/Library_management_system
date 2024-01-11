@@ -93,7 +93,7 @@ SECRET_KEY = env("SECRET_KEY")
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgres://mamarbank_exbi_user:Cvs3mnAB1hz0lY7NCzPO6U6KcziB6jj3@dpg-cmdbj7ed3nmc73dik0j0-a.oregon-postgres.render.com/mamarbank_exbi',
+        default='postgres://ahmlibrary_user:K7nPKYJWBusMhinXGp4hX8d1fbiwGkjy@dpg-cmg00aug1b2c73cqjojg-a.oregon-postgres.render.com/ahmlibrary',
     )
 }
 
