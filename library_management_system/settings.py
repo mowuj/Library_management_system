@@ -34,7 +34,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = [
-    'https://ahm-library.onrender.com/', 'https://*.127.0.0.1']
+    'https://ahm-library.onrender', 'https://ahm-library.onrender.com', 'https://ahm-library.onrender.com/', 'https://*.127.0.0.1']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
