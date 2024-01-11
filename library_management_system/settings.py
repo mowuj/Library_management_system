@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import dj_database_url
 import environ
 from pathlib import Path
 env = environ.Env()
@@ -21,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w%aq4ftk%7i3ujkrx+@am@$vm4zlupl5kjuzb2j8gl0i9_8!^v'
+# SECRET_KEY = 'django-insecure-w%aq4ftk%7i3ujkrx+@am@$vm4zlupl5kjuzb2j8gl0i9_8!^v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -79,17 +80,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'library_management_system.wsgi.application'
 
-
+SECRET_KEY = env("SECRET_KEY")
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgres://mamarbank_exbi_user:Cvs3mnAB1hz0lY7NCzPO6U6KcziB6jj3@dpg-cmdbj7ed3nmc73dik0j0-a.oregon-postgres.render.com/mamarbank_exbi',
+    )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
