@@ -51,6 +51,10 @@ LOGIN_URL = '/customer/login'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 # rnli hfav dpst jxib
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://ahm-library.onrender.com/', 'https://*.127.0.0.1']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
